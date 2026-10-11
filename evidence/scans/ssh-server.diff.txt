@@ -1,0 +1,46 @@
+           pass -> fail          medium  SV-263652r982557_rule        The operating system must implement multifactor authentication for loc
+           pass -> fail          high    SV-203736r958848_rule        The operating system must implement cryptographic mechanisms to protec
+           pass -> fail          high    SV-203737r958850_rule        The operating system must implement cryptographic mechanisms to protec
+           pass -> fail          high    SV-203653r958510_rule        The operating system must employ strong authenticators in the establis
+           pass -> fail          high    SV-203603r958408_rule        The operating system must implement DoD-approved encryption to protect
+           pass -> fail          high    SV-203669r991554_rule        The operating system must implement cryptography to protect the integr
+           pass -> fail          high    SV-203782r991591_rule        The operating system must not allow an unattended or automatic logon t
+           pass -> fail          low     SV-203597r958398_rule        The operating system must limit the number of concurrent sessions to t
+           pass -> fail          medium  SV-203718r958796_rule        The operating system must enforce access restrictions.
+           pass -> fail          medium  SV-203738r958852_rule        The operating system must verify remote disconnection at the terminati
+           pass -> fail          medium  SV-203734r982217_rule        The operating system, for PKI-based authentication, must implement a l
+           pass -> fail          medium  SV-203735r958846_rule        The operating system must audit all activities performed during nonloc
+           pass -> fail          medium  SV-203659r970703_rule        The operating system must terminate all network connections associated
+           pass -> fail          medium  SV-203723r1050789_rule       The operating system must require users to reauthenticate for privileg
+           pass -> fail          medium  SV-203727r982216_rule        The operating system must implement multifactor authentication for rem
+           pass -> fail          medium  SV-203729r958818_rule        The operating system must electronically verify Personal Identity Veri
+           pass -> fail          medium  SV-203728r958816_rule        The operating system must accept Personal Identity Verification (PIV) 
+           pass -> fail          medium  SV-203624r958452_rule        The operating system must map the authenticated identity to the user o
+           pass -> fail          medium  SV-203622r958448_rule        The operating system, for PKI-based authentication, must validate cert
+           pass -> fail          medium  SV-203623r958450_rule        The operating system, for PKI-based authentication, must enforce autho
+           pass -> fail          medium  SV-203683r958636_rule        The operating system must automatically terminate a user session after
+           pass -> fail          medium  SV-203686r958672_rule        The operating system must control remote access methods.
+           pass -> fail          medium  SV-203687r958674_rule        The operating system must provide the capability to immediately discon
+           pass -> fail          medium  SV-203684r958638_rule        The operating system must provide a logoff capability for user-initiat
+           pass -> fail          medium  SV-203685r958640_rule        The operating system must display an explicit logoff message to users 
+           pass -> fail          medium  SV-203636r958472_rule        The operating system must enforce approved authorizations for logical 
+           pass -> fail          medium  SV-203744r958868_rule        The operating system must only allow the use of DoD PKI-established ce
+           pass -> fail          medium  SV-203698r958736_rule        The operating system must automatically lock an account until the lock
+           pass -> fail          medium  SV-203598r958400_rule        The operating system must retain a users session lock until that user 
+           pass -> fail          medium  SV-203599r958402_rule        The operating system must initiate a session lock after a 15-minute pe
+           pass -> fail          medium  SV-203596r958392_rule        The operating system must display the Standard Mandatory DoD Notice an
+           pass -> fail          medium  SV-203594r958388_rule        The operating system must enforce the limit of three consecutive inval
+           pass -> fail          medium  SV-203595r958390_rule        The operating system must display the Standard Mandatory DoD Notice an
+           pass -> fail          medium  SV-203602r958406_rule        The operating system must monitor remote access methods.
+           pass -> fail          medium  SV-203600r982194_rule        The operating system must provide the capability for users to directly
+           pass -> fail          medium  SV-203601r958404_rule        The operating system must conceal, via the session lock, information p
+           pass -> fail          medium  SV-203665r958586_rule        Any publicly accessible connection to the operating system must displa
+           pass -> fail          medium  SV-203779r991588_rule        The operating system must enforce a delay of at least 4 seconds betwee
+           pass -> fail          medium  SV-203771r991582_rule        The operating system must generate audit records when concurrent logon
+           pass -> fail          medium  SV-203646r982206_rule        The operating system must implement replay-resistant authentication me
+           pass -> fail          medium  SV-203644r982205_rule        The operating system must require individuals to be authenticated with
+           pass -> fail          medium  SV-203645r958494_rule        The operating system must implement replay-resistant authentication me
+           pass -> fail          medium  SV-203642r982203_rule        The operating system must use multifactor authentication for local acc
+           pass -> fail          medium  SV-203643r982204_rule        The operating system must use multifactor authentication for local acc
+           pass -> fail          medium  SV-203640r958484_rule        The operating system must use multifactor authentication for network a
+           pass -> fail          medium  SV-203641r958486_rule        The operating system must use multifactor authentication for network a

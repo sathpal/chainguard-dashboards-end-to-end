@@ -1,0 +1,25 @@
+# cosign verify-attestation run on a laptop on 2026-10-11 against the image built by CI run 38151174624.
+# Two receipts: apko builds are reproducible, so run 38151265148 rebuilt the identical image digest and attested a second scan.
+
+$ cosign verify-attestation --type https://github.com/sathpal/chainguard-dashboards-end-to-end/stig-receipt/v1 \
+    --certificate-identity https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/compliance.yml@refs/heads/main \
+    --certificate-oidc-issuer https://token.actions.githubusercontent.com ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73…
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The code-signing certificate was verified using trusted certificate authority certificates
+
+subject ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171
+type    https://github.com/sathpal/chainguard-dashboards-end-to-end/stig-receipt/v1
+digest  sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64
+scanner cgr.dev/chainguard/openscap@sha256:81361810fdd51d202f6318ddc2d8410dbe7cfa2e48b1b36c93dab40851d52a50
+profile 6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e
+results 7d9476336483e04c72130d97102443ad3fd80bc2e2bb94b534ac08d3ffae2908
+counts  {"fail":5,"notapplicable":107,"pass":86}
+
+subject ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171
+results 579523e729d4d3423887ee50d5f4351b5c6adb639b86d4b1609a3c918a6f211f
+counts  {"fail":5,"notapplicable":107,"pass":86}
+
+$ cosign verify-attestation ... --certificate-identity https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/other.yml@refs/heads/main ...
+failed to verify certificate identity: no matching CertificateIdentity found, last error: expected SAN value "https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/other.yml@refs/heads/main", got "https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/compliance.yml@refs/heads/main"

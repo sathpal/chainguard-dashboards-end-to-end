@@ -1,2 +1,8 @@
+# grype 0.118.0 on 2026-10-11: critical/high/total for current upstream tags (scripts/insights.sh used the tags the estate pins)
 nginx:stable       20/100/304
-postgres:latest    
+postgres:latest    3/88/309
+python:slim        0/55/161
+
+# versions behind those tags (from the image config)
+nginx:stable       NGINX_VERSION=1.30.5
+postgres:latest    PG_VERSION=18.6-1.pgdg13+2

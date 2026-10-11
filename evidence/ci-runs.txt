@@ -1,0 +1,45 @@
+# GitHub Actions runs of .github/workflows/compliance.yml (linux/amd64), 2026-10-11
+run 38151174624: scan x3 success, receipt success, drift failed (drift.sh wrote into a directory the step had just removed; fixed in the next commit)
+run 38151265148: all five jobs success
+
+## receipt job, run 38151174624
+published ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171
+scan   ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171
+       registry sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 (linux/amd64)
+with   cgr.dev/chainguard/openscap@sha256:81361810fdd51d202f6318ddc2d8410dbe7cfa2e48b1b36c93dab40851d52a50
+result fail 5  notapplicable 107  pass 86  (rules 198)
+ACCEPTED high    SV-203739r987791_rule        until 2027-01-31 (platform-security)
+ACCEPTED high    SV-203776r959006_rule        until 2027-01-31 (platform-security)
+ACCEPTED medium  SV-203750r958912_rule        until 2027-01-31 (platform-security)
+ACCEPTED medium  SV-203751r958914_rule        until 2027-01-31 (platform-security)
+ACCEPTED medium  SV-203649r971535_rule        until 2027-01-31 (platform-security)
+PASS  ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171 sha256:36941fa0d16b  pass 86  fail 5  n/a 107  unaccepted or expired 0
+subject ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171
+receipt ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f4372906c1ace187b6db183494862425ca9e07fbd3dbef3d4258a171 scanned 2026-10-11T15:25:37Z with cgr.dev/chainguard/openscap@sha256:81361810fdd51d202f6318ddc2d8410dbe7cfa2e48b1b36c93dab40851d52a50
+counts  {"fail":5,"notapplicable":107,"pass":86}
+
+## drift job, run 38151265148
+FIXTURE                      PASS   FAIL    N/A   CHANGED AGAINST THE BASELINE
+baseline                       86      5    107   (Chainguard wolfi-base as shipped)
+corporate-ca-dockerfile        85      6    107
+    1 pass -> fail via oval:org.CABundleHash:def:1 (1 medium), e.g. SV-263659: The operating system must include only approved trust anchor
+corporate-ca-apko              86      5    107
+  no rule changed result
+http-mirror                    85      6    107
+    1 pass -> fail via oval:org.PackageSignature:def:1 (1 high), e.g. SV-203720: The operating system must prevent the installation of patche
+ssh-server                     40     51    107
+   46 pass -> fail via oval:org.RemoteAccessServices:def:1 (39 medium, 6 high, 1 low), e.g. SV-263652: The operating system must implement multifactor authenticati
+active-password                55     36    107
+   13 pass -> fail via oval:org.example:def:3 (11 medium, 2 high), e.g. SV-203629: The operating system must store only encrypted representatio
+   18 pass -> fail via oval:org.NoUsers:def:1 (17 medium, 1 high), e.g. SV-263650: The operating system must disable accounts when the accounts
+
+## scan jobs, run 38151265148
+scan   cgr.dev/chainguard/wolfi-base:latest
+       registry sha256:4c1aea74ceda999336d0b681792c2b787d8d63f0f4e5ace586489c2d15fde6ce (linux/amd64)
+PASS  cgr.dev/chainguard/wolfi-base:latest sha256:4c1aea74ceda  pass 86  fail 5  n/a 107  unaccepted or expired 0
+scan   cgr.dev/chainguard/python:latest
+       registry sha256:daa185d3e927884a4f3d70af2a332cf84ccd5d9dc800e844b574738ac627ff0e (linux/amd64)
+PASS  cgr.dev/chainguard/python:latest sha256:daa185d3e927  pass 86  fail 5  n/a 107  unaccepted or expired 0
+scan   cgr.dev/chainguard/nginx:latest
+       registry sha256:42952b7411197633ac4a37af4bf91d0e8a807011769d89e797f3b636840388f3 (linux/amd64)
+PASS  cgr.dev/chainguard/nginx:latest sha256:42952b741119  pass 86  fail 5  n/a 107  unaccepted or expired 0

@@ -1,0 +1,1 @@
+           pass -> fail          high    SV-203720r982212_rule        The operating system must prevent the installation of patches, service

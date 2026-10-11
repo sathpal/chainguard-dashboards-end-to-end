@@ -1,0 +1,13 @@
+FIXTURE                      PASS   FAIL    N/A   CHANGED AGAINST THE BASELINE
+baseline                       86      5    107   (Chainguard wolfi-base as shipped)
+corporate-ca-dockerfile        85      6    107
+    1 pass -> fail via oval:org.CABundleHash:def:1 (1 medium), e.g. SV-263659: The operating system must include only approved trust anchor
+corporate-ca-apko              86      5    107
+  no rule changed result
+http-mirror                    85      6    107
+    1 pass -> fail via oval:org.PackageSignature:def:1 (1 high), e.g. SV-203720: The operating system must prevent the installation of patche
+ssh-server                     40     51    107
+   46 pass -> fail via oval:org.RemoteAccessServices:def:1 (39 medium, 6 high, 1 low), e.g. SV-263652: The operating system must implement multifactor authenticati
+active-password                55     36    107
+   13 pass -> fail via oval:org.example:def:3 (11 medium, 2 high), e.g. SV-203629: The operating system must store only encrypted representatio
+   18 pass -> fail via oval:org.NoUsers:def:1 (17 medium, 1 high), e.g. SV-263650: The operating system must disable accounts when the accounts

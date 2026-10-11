@@ -1,14 +1,14 @@
 {
   "image": "drift/corporate-ca-dockerfile:local",
   "source": "local",
-  "digest": "sha256:c7734b6d21e8c7e035ff3cbd9a20913f68e0f600946f1cc6fa6d0d4f464ab412",
+  "digest": "sha256:21044851f10d777b5ed4dde7105e6a74af22f8b0becb7a8f06fd12367ff3f674",
   "platform": "linux/arm64",
   "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
   "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
   "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
-  "results_sha256": "5fb5f8abd26912c1cd1864838ba6f724124ed8e30efaf33732981e53f58e206b",
-  "started": "2026-10-11T15:13:19Z",
-  "finished": "2026-10-11T15:13:20Z",
+  "results_sha256": "f451630a11a6f2c285b5e3071a41f72ab0528fbb6ee5ee3c2d8c5e4e68f1665e",
+  "started": "2026-10-11T15:29:15Z",
+  "finished": "2026-10-11T15:29:15Z",
   "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
   "counts": {
     "fail": 6,

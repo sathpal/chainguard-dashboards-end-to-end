@@ -1,5 +1,5 @@
 scan   drift/corporate-ca-dockerfile:local
-       local sha256:c7734b6d21e8c7e035ff3cbd9a20913f68e0f600946f1cc6fa6d0d4f464ab412 (linux/arm64)
+       local sha256:21044851f10d777b5ed4dde7105e6a74af22f8b0becb7a8f06fd12367ff3f674 (linux/arm64)
 with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
 result fail 6  notapplicable 107  pass 85  (rules 198)
   FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote

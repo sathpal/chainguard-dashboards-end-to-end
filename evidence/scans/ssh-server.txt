@@ -1,5 +1,5 @@
 scan   drift/ssh-server:local
-       local sha256:c672ff56363010b22893a1ff188aadd48cd8e764f7cbbb1a15f923a8107e1e78 (linux/arm64)
+       local sha256:ee81c3a8825df97b6c5503e7f417e55bea9a9e12eb43584edfc8d0867cdecebc (linux/arm64)
 with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
 result fail 51  notapplicable 107  pass 40  (rules 198)
   FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote

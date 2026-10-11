@@ -19,7 +19,11 @@ def main():
         i = args.index("--today")
         today = datetime.date.fromisoformat(args[i + 1])
         del args[i:i + 2]
-    receipt_path, policy_path = [a for a in args if not a.startswith("--")][:2]
+    if "--fips" in args:
+        args.remove("--fips")
+    if len(args) != 2 or any(a.startswith("-") for a in args):
+        sys.exit(__doc__)  # an unknown option must not be ignored: a gate that skips its own flags passes too easily
+    receipt_path, policy_path = args
     receipt = json.load(open(receipt_path))
     accepted = json.load(open(policy_path))["accepted"]
 

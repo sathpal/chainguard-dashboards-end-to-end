@@ -1,14 +1,14 @@
 {
   "image": "drift/baseline:local",
   "source": "local",
-  "digest": "sha256:11cbdfb65312adf98916ff0485edc773a600ba98bc0a012ddf5b94f9ac4989a2",
+  "digest": "sha256:f5d8e5e07353a088228f542b7c0bfc50efbb26287e6a8bff6fc07ffb3803123a",
   "platform": "linux/arm64",
   "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
   "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
   "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
-  "results_sha256": "a3ee134281f8e9baf601b3cfbb972efb1d9cffac8f9352e748e9b611486667be",
-  "started": "2026-10-11T15:12:45Z",
-  "finished": "2026-10-11T15:12:46Z",
+  "results_sha256": "804ad47e1fc4790fb24922133cd253fd8cc8a9b87eaa68c92b98fa77ea03a770",
+  "started": "2026-10-11T15:29:06Z",
+  "finished": "2026-10-11T15:29:07Z",
   "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
   "counts": {
     "fail": 5,

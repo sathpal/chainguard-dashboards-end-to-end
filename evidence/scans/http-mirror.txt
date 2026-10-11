@@ -1,5 +1,5 @@
 scan   drift/http-mirror:local
-       local sha256:c6c71e6114fabe01662687668ef07e729e9c02e6ae66e5fe87eff86375cdcafb (linux/arm64)
+       local sha256:795985f16b091574e133f644237530e06e6c95cb5699e944d89e3d4f96c82e60 (linux/arm64)
 with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
 result fail 6  notapplicable 107  pass 85  (rules 198)
   FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote

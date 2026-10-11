@@ -6,9 +6,9 @@
   "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
   "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
   "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
-  "results_sha256": "492d911926da83f340bd821ea8bea1e0718ff414af0e855e53613b733e13fc23",
-  "started": "2026-10-11T15:13:35Z",
-  "finished": "2026-10-11T15:13:36Z",
+  "results_sha256": "925c1a62c8eff87da52b2703e9c9cbaf067c2f96e0b3595c5186cf034f3e2b37",
+  "started": "2026-10-11T15:29:34Z",
+  "finished": "2026-10-11T15:29:35Z",
   "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
   "counts": {
     "fail": 5,

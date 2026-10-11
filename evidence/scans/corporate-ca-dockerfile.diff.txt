@@ -1,0 +1,1 @@
+           pass -> fail          medium  SV-263659r982563_rule        The operating system must include only approved trust anchors in trust
