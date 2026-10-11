@@ -1,0 +1,2 @@
+nginx:stable       20/100/304
+postgres:latest    

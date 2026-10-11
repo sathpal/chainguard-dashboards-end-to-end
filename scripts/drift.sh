@@ -25,6 +25,7 @@ build() {  # build one fixture as drift/<name>:local, from its Dockerfile or its
 
 scan() { scripts/stig-scan.sh "drift/$1:local" "evidence/scans/$1" > "evidence/scans/$1.txt"; }
 
+mkdir -p evidence/scans
 [ -f evidence/scans/baseline/results.xml ] || { build baseline; scan baseline; }
 printf '%-26s %6s %6s %6s   %s\n' FIXTURE PASS FAIL N/A "CHANGED AGAINST THE BASELINE"
 b=$(python3 -I -c 'import json,sys; c=json.load(open(sys.argv[1]))["counts"]; print(c.get("pass",0),c.get("fail",0),c.get("notapplicable",0))' evidence/scans/baseline/receipt.json)

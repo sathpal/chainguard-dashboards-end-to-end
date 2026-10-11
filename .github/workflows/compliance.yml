@@ -76,6 +76,7 @@ jobs:
           version: v0.22.1
       - name: Build each fixture, scan it, compare with the baseline
         run: |
+          set -o pipefail
           rm -rf evidence/scans
           scripts/drift.sh | tee drift.txt
           {
