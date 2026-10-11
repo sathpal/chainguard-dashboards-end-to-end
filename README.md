@@ -12,7 +12,7 @@ public images and open tools, so you can check it, automate it in CI, and extend
 top of Chainguard's, which is where the dashboards stop. Everything below was run on 11 October 2026, on a laptop
 (linux/arm64) and in GitHub Actions (linux/amd64); the drift fixtures gave the same result for every rule on both.
 
-**Start here: [the hands-on guide](docs/hands-on.md)**: every command, what it prints, and what it proves.
+**Start here: [the hands-on guide](docs/hands-on.md)**: every command, what it prints, and what it proves. [docs/devto-article.md](docs/devto-article.md) is the write-up.
 
 ## What each panel is, and how it is reproduced here
 
