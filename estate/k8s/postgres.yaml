@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ledger-db
+spec:
+  serviceName: ledger-db
+  selector:
+    matchLabels: {app: ledger-db}
+  template:
+    metadata:
+      labels: {app: ledger-db}
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - name: POSTGRES_PASSWORD_FILE
+              value: /run/secrets/db-password

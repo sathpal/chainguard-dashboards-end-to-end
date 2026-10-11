@@ -1,0 +1,12 @@
+scan   drift/http-mirror:local
+       local sha256:c6c71e6114fabe01662687668ef07e729e9c02e6ae66e5fe87eff86375cdcafb (linux/arm64)
+with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
+result fail 6  notapplicable 107  pass 85  (rules 198)
+  FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote
+  FAIL  high    SV-203776r959006_rule        oval:org.OpenSsl:def:1         The operating system must implement NIST FIPS-validated cryptography f
+  FAIL  medium  SV-203750r958912_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203751r958914_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203649r971535_rule        oval:org.OpenSsl:def:1         The operating system must use mechanisms meeting the requirements of a
+  FAIL  high    SV-203720r982212_rule        oval:org.PackageSignature:def:1 The operating system must prevent the installation of patches, service
+  6 failed rules come from 2 check(s): oval:org.OpenSsl:def:1 (5), oval:org.PackageSignature:def:1 (1)
+wrote  /Users/sathpal/chainguard-dashboards-end-to-end/evidence/scans/http-mirror/{results.xml,results.xml.sha256,report.html,receipt.json}

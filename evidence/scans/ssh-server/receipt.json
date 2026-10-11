@@ -1,0 +1,381 @@
+{
+  "image": "drift/ssh-server:local",
+  "source": "local",
+  "digest": "sha256:c672ff56363010b22893a1ff188aadd48cd8e764f7cbbb1a15f923a8107e1e78",
+  "platform": "linux/arm64",
+  "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
+  "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
+  "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
+  "results_sha256": "fbb249de34b6c560019c41893a0b051344a9d2798b5ddcd908a5ae7e79194d29",
+  "started": "2026-10-11T15:13:53Z",
+  "finished": "2026-10-11T15:13:54Z",
+  "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
+  "counts": {
+    "fail": 51,
+    "notapplicable": 107,
+    "pass": 40
+  },
+  "score": {
+    "default": 77.777779,
+    "flat": 40.0
+  },
+  "failed": [
+    {
+      "rule": "SV-203739r987791_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203776r959006_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NIST FIPS-validated cryptography for the following: to provision digital signatures, to generate cryptographic hashes, and to protect unclassified information requiring confidentiality and cryptographic protection in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203750r958912_rule",
+      "severity": "medium",
+      "cci": "CCI-002420",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during preparation for transmission."
+    },
+    {
+      "rule": "SV-203751r958914_rule",
+      "severity": "medium",
+      "cci": "CCI-002422",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during reception."
+    },
+    {
+      "rule": "SV-203649r971535_rule",
+      "severity": "medium",
+      "cci": "CCI-000803",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must use mechanisms meeting the requirements of applicable federal laws, Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module."
+    },
+    {
+      "rule": "SV-263652r982557_rule",
+      "severity": "medium",
+      "cci": "CCI-004047",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement multifactor authentication for local, network, and/or remote access to privileged accounts and/or nonprivileged accounts such that the device meets organization-defined strength of mechanism requirements."
+    },
+    {
+      "rule": "SV-203736r958848_rule",
+      "severity": "high",
+      "cci": "CCI-002890",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement cryptographic mechanisms to protect the integrity of nonlocal maintenance and diagnostic communications, when used for nonlocal maintenance sessions."
+    },
+    {
+      "rule": "SV-203737r958850_rule",
+      "severity": "high",
+      "cci": "CCI-003123",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement cryptographic mechanisms to protect the confidentiality of nonlocal maintenance and diagnostic communications, when used for nonlocal maintenance sessions."
+    },
+    {
+      "rule": "SV-203653r958510_rule",
+      "severity": "high",
+      "cci": "CCI-000877",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must employ strong authenticators in the establishment of nonlocal maintenance and diagnostic sessions."
+    },
+    {
+      "rule": "SV-203603r958408_rule",
+      "severity": "high",
+      "cci": "CCI-000068",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement DoD-approved encryption to protect the confidentiality of remote access sessions."
+    },
+    {
+      "rule": "SV-203669r991554_rule",
+      "severity": "high",
+      "cci": "CCI-001453",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement cryptography to protect the integrity of remote access sessions."
+    },
+    {
+      "rule": "SV-203782r991591_rule",
+      "severity": "high",
+      "cci": "CCI-000366",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must not allow an unattended or automatic logon to the system."
+    },
+    {
+      "rule": "SV-203597r958398_rule",
+      "severity": "low",
+      "cci": "CCI-000054",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must limit the number of concurrent sessions to ten for all accounts and/or account types."
+    },
+    {
+      "rule": "SV-203718r958796_rule",
+      "severity": "medium",
+      "cci": "CCI-001813",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must enforce access restrictions."
+    },
+    {
+      "rule": "SV-203738r958852_rule",
+      "severity": "medium",
+      "cci": "CCI-002891",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must verify remote disconnection at the termination of nonlocal maintenance and diagnostic sessions, when used for nonlocal maintenance sessions."
+    },
+    {
+      "rule": "SV-203734r982217_rule",
+      "severity": "medium",
+      "cci": "CCI-004068",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system, for PKI-based authentication, must implement a local cache of revocation data to support path discovery and validation in case of the inability to access revocation information via the network."
+    },
+    {
+      "rule": "SV-203735r958846_rule",
+      "severity": "medium",
+      "cci": "CCI-002884",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must audit all activities performed during nonlocal maintenance and diagnostic sessions."
+    },
+    {
+      "rule": "SV-203659r970703_rule",
+      "severity": "medium",
+      "cci": "CCI-001133",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must terminate all network connections associated with a communications session at the end of the session, or as follows: for in-band management sessions (privileged sessions), the session must be terminated after 10 minutes of inactivity; and for user sessions (non-privileged session), the session must be terminated after 15 minutes of inactivity, except to fulfill documented and validated mission requirements."
+    },
+    {
+      "rule": "SV-203723r1050789_rule",
+      "severity": "medium",
+      "cci": "CCI-002038",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must require users to reauthenticate for privilege escalation."
+    },
+    {
+      "rule": "SV-203727r982216_rule",
+      "severity": "medium",
+      "cci": "CCI-004046",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement multifactor authentication for remote access to privileged accounts in such a way that one of the factors is provided by a device separate from the system gaining access."
+    },
+    {
+      "rule": "SV-203729r958818_rule",
+      "severity": "medium",
+      "cci": "CCI-001954",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must electronically verify Personal Identity Verification (PIV) credentials."
+    },
+    {
+      "rule": "SV-203728r958816_rule",
+      "severity": "medium",
+      "cci": "CCI-001953",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must accept Personal Identity Verification (PIV) credentials."
+    },
+    {
+      "rule": "SV-203624r958452_rule",
+      "severity": "medium",
+      "cci": "CCI-000187",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must map the authenticated identity to the user or group account for PKI-based authentication."
+    },
+    {
+      "rule": "SV-203622r958448_rule",
+      "severity": "medium",
+      "cci": "CCI-000185",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor."
+    },
+    {
+      "rule": "SV-203623r958450_rule",
+      "severity": "medium",
+      "cci": "CCI-000186",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system, for PKI-based authentication, must enforce authorized access to the corresponding private key."
+    },
+    {
+      "rule": "SV-203683r958636_rule",
+      "severity": "medium",
+      "cci": "CCI-002361",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must automatically terminate a user session after inactivity time-outs have expired or at shutdown."
+    },
+    {
+      "rule": "SV-203686r958672_rule",
+      "severity": "medium",
+      "cci": "CCI-002314",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must control remote access methods."
+    },
+    {
+      "rule": "SV-203687r958674_rule",
+      "severity": "medium",
+      "cci": "CCI-002322",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must provide the capability to immediately disconnect or disable remote access to the operating system."
+    },
+    {
+      "rule": "SV-203684r958638_rule",
+      "severity": "medium",
+      "cci": "CCI-002363",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must provide a logoff capability for user-initiated communications sessions when requiring user access authentication."
+    },
+    {
+      "rule": "SV-203685r958640_rule",
+      "severity": "medium",
+      "cci": "CCI-002364",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must display an explicit logoff message to users indicating the reliable termination of authenticated communications sessions."
+    },
+    {
+      "rule": "SV-203636r958472_rule",
+      "severity": "medium",
+      "cci": "CCI-000213",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must enforce approved authorizations for logical access to information and system resources in accordance with applicable access control policies."
+    },
+    {
+      "rule": "SV-203744r958868_rule",
+      "severity": "medium",
+      "cci": "CCI-002470",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must only allow the use of DoD PKI-established certificate authorities for authentication in the establishment of protected sessions to the operating system."
+    },
+    {
+      "rule": "SV-203698r958736_rule",
+      "severity": "medium",
+      "cci": "CCI-002238",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must automatically lock an account until the locked account is released by an administrator when three unsuccessful logon attempts in 15 minutes occur."
+    },
+    {
+      "rule": "SV-203598r958400_rule",
+      "severity": "medium",
+      "cci": "CCI-000056",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must retain a users session lock until that user reestablishes access using established identification and authentication procedures."
+    },
+    {
+      "rule": "SV-203599r958402_rule",
+      "severity": "medium",
+      "cci": "CCI-000057",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must initiate a session lock after a 15-minute period of inactivity for all connection types."
+    },
+    {
+      "rule": "SV-203596r958392_rule",
+      "severity": "medium",
+      "cci": "CCI-000050",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must display the Standard Mandatory DoD Notice and Consent Banner until users acknowledge the usage conditions and take explicit actions to log on for further access."
+    },
+    {
+      "rule": "SV-203594r958388_rule",
+      "severity": "medium",
+      "cci": "CCI-000044",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must enforce the limit of three consecutive invalid logon attempts by a user during a 15-minute time period."
+    },
+    {
+      "rule": "SV-203595r958390_rule",
+      "severity": "medium",
+      "cci": "CCI-000048",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must display the Standard Mandatory DoD Notice and Consent Banner before granting local or remote access to the system."
+    },
+    {
+      "rule": "SV-203602r958406_rule",
+      "severity": "medium",
+      "cci": "CCI-000067",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must monitor remote access methods."
+    },
+    {
+      "rule": "SV-203600r982194_rule",
+      "severity": "medium",
+      "cci": "CCI-000057",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must provide the capability for users to directly initiate a session lock for all connection types."
+    },
+    {
+      "rule": "SV-203601r958404_rule",
+      "severity": "medium",
+      "cci": "CCI-000060",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must conceal, via the session lock, information previously visible on the display with a publicly viewable image."
+    },
+    {
+      "rule": "SV-203665r958586_rule",
+      "severity": "medium",
+      "cci": "CCI-001384",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "Any publicly accessible connection to the operating system must display the Standard Mandatory DoD Notice and Consent Banner before granting access to the system."
+    },
+    {
+      "rule": "SV-203779r991588_rule",
+      "severity": "medium",
+      "cci": "CCI-000366",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must enforce a delay of at least 4 seconds between logon prompts following a failed logon attempt."
+    },
+    {
+      "rule": "SV-203771r991582_rule",
+      "severity": "medium",
+      "cci": "CCI-000172",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must generate audit records when concurrent logons to the same account occur from different sources."
+    },
+    {
+      "rule": "SV-203646r982206_rule",
+      "severity": "medium",
+      "cci": "CCI-001941",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement replay-resistant authentication mechanisms for network access to nonprivileged accounts."
+    },
+    {
+      "rule": "SV-203644r982205_rule",
+      "severity": "medium",
+      "cci": "CCI-004045",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must require individuals to be authenticated with an individual authenticator prior to using a group authenticator."
+    },
+    {
+      "rule": "SV-203645r958494_rule",
+      "severity": "medium",
+      "cci": "CCI-001941",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must implement replay-resistant authentication mechanisms for network access to privileged accounts."
+    },
+    {
+      "rule": "SV-203642r982203_rule",
+      "severity": "medium",
+      "cci": "CCI-000765",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must use multifactor authentication for local access to privileged accounts."
+    },
+    {
+      "rule": "SV-203643r982204_rule",
+      "severity": "medium",
+      "cci": "CCI-000766",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must use multifactor authentication for local access to nonprivileged accounts."
+    },
+    {
+      "rule": "SV-203640r958484_rule",
+      "severity": "medium",
+      "cci": "CCI-000765",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must use multifactor authentication for network access to privileged accounts."
+    },
+    {
+      "rule": "SV-203641r958486_rule",
+      "severity": "medium",
+      "cci": "CCI-000766",
+      "check": "oval:org.RemoteAccessServices:def:1",
+      "title": "The operating system must use multifactor authentication for network access to non-privileged accounts."
+    }
+  ]
+}

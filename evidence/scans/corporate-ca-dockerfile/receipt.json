@@ -1,0 +1,66 @@
+{
+  "image": "drift/corporate-ca-dockerfile:local",
+  "source": "local",
+  "digest": "sha256:c7734b6d21e8c7e035ff3cbd9a20913f68e0f600946f1cc6fa6d0d4f464ab412",
+  "platform": "linux/arm64",
+  "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
+  "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
+  "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
+  "results_sha256": "5fb5f8abd26912c1cd1864838ba6f724124ed8e30efaf33732981e53f58e206b",
+  "started": "2026-10-11T15:13:19Z",
+  "finished": "2026-10-11T15:13:20Z",
+  "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
+  "counts": {
+    "fail": 6,
+    "notapplicable": 107,
+    "pass": 85
+  },
+  "score": {
+    "default": 77.777779,
+    "flat": 85.0
+  },
+  "failed": [
+    {
+      "rule": "SV-203739r987791_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203776r959006_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NIST FIPS-validated cryptography for the following: to provision digital signatures, to generate cryptographic hashes, and to protect unclassified information requiring confidentiality and cryptographic protection in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203750r958912_rule",
+      "severity": "medium",
+      "cci": "CCI-002420",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during preparation for transmission."
+    },
+    {
+      "rule": "SV-203751r958914_rule",
+      "severity": "medium",
+      "cci": "CCI-002422",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during reception."
+    },
+    {
+      "rule": "SV-203649r971535_rule",
+      "severity": "medium",
+      "cci": "CCI-000803",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must use mechanisms meeting the requirements of applicable federal laws, Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module."
+    },
+    {
+      "rule": "SV-263659r982563_rule",
+      "severity": "medium",
+      "cci": "CCI-004909",
+      "check": "oval:org.CABundleHash:def:1",
+      "title": "The operating system must include only approved trust anchors in trust stores or certificate stores managed by the organization."
+    }
+  ]
+}

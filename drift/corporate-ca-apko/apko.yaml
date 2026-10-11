@@ -1,0 +1,39 @@
+# The same corporate root CA as corporate-ca-dockerfile, added the way the trust-anchor rule expects: declared in the
+# image's build definition. apko merges it into every CA bundle and Java truststore and only then writes the SHA-256
+# sidecars, so the image stays self-consistent and SV-263659 passes. The reviewed build definition is the approval;
+# the sidecar is the evidence. (For Chainguard images in your organization, Custom Assembly is the managed equivalent.)
+contents:
+  repositories:
+    - https://packages.wolfi.dev/os
+  keyring:
+    - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+  packages:
+    - wolfi-base
+certificates:
+  additional:
+    - name: example-corp-root
+      content: |
+        -----BEGIN CERTIFICATE-----
+        MIIB5jCCAYugAwIBAgIJAJBnO9hLVb01MAoGCCqGSM49BAMCMFYxFTATBgNVBAoM
+        DEV4YW1wbGUgQ29ycDE9MDsGA1UEAww0RXhhbXBsZSBDb3JwIFRlc3QgUm9vdCBD
+        QSAoZGVtbyBvbmx5LCBrZXkgZGlzY2FyZGVkKTAeFw0yNjEwMTExNTExNDBaFw0z
+        NjEwMDgxNTExNDBaMFYxFTATBgNVBAoMDEV4YW1wbGUgQ29ycDE9MDsGA1UEAww0
+        RXhhbXBsZSBDb3JwIFRlc3QgUm9vdCBDQSAoZGVtbyBvbmx5LCBrZXkgZGlzY2Fy
+        ZGVkKTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABPajfC6rNay+FgWaefVK7X+Z
+        edf6keHTLGnk4vqnV9Zpe7+8QaDvvZ53+goEo8KhuU/3hdyvqIk0dfqkJHl6Dfqj
+        QjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQWBBQt
+        xsaoQiv0sfN1d0BW/uQUQJC8jzAKBggqhkjOPQQDAgNJADBGAiEAi5d5vWDmCsgS
+        CUeDAagZeyyGaK/ZB1Q1TAoY7vWoH2UCIQDywQlV6TLnXwxto8XCBmCeuyLvHxnq
+        CYYor32eWJ3nGw==
+        -----END CERTIFICATE-----
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 65532
+  users:
+    - username: nonroot
+      uid: 65532
+      gid: 65532
+  run-as: 65532
+entrypoint:
+  command: /bin/sh -l

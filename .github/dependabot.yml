@@ -1,0 +1,23 @@
+# Keeps the Chainguard Actions pins and the fixtures' base-image digests current. Each update is a pull request, and
+# the compliance workflow scans and gates it before it merges.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: actions
+
+  - package-ecosystem: docker
+    directories: ["/drift/*"]
+    schedule:
+      interval: weekly
+    groups:
+      fixtures:
+        patterns: ["*"]
+    commit-message:
+      prefix: images

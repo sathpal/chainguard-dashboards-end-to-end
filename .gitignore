@@ -1,0 +1,5 @@
+out/
+evidence/scans/*/report.html
+evidence/scans/*/oscap.log
+drift/*/.image.tar
+drift/*/sbom-*.json

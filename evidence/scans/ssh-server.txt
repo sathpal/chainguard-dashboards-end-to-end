@@ -1,0 +1,57 @@
+scan   drift/ssh-server:local
+       local sha256:c672ff56363010b22893a1ff188aadd48cd8e764f7cbbb1a15f923a8107e1e78 (linux/arm64)
+with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
+result fail 51  notapplicable 107  pass 40  (rules 198)
+  FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote
+  FAIL  high    SV-203776r959006_rule        oval:org.OpenSsl:def:1         The operating system must implement NIST FIPS-validated cryptography f
+  FAIL  medium  SV-203750r958912_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203751r958914_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203649r971535_rule        oval:org.OpenSsl:def:1         The operating system must use mechanisms meeting the requirements of a
+  FAIL  medium  SV-263652r982557_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement multifactor authentication for loc
+  FAIL  high    SV-203736r958848_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement cryptographic mechanisms to protec
+  FAIL  high    SV-203737r958850_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement cryptographic mechanisms to protec
+  FAIL  high    SV-203653r958510_rule        oval:org.RemoteAccessServices:def:1 The operating system must employ strong authenticators in the establis
+  FAIL  high    SV-203603r958408_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement DoD-approved encryption to protect
+  FAIL  high    SV-203669r991554_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement cryptography to protect the integr
+  FAIL  high    SV-203782r991591_rule        oval:org.RemoteAccessServices:def:1 The operating system must not allow an unattended or automatic logon t
+  FAIL  low     SV-203597r958398_rule        oval:org.RemoteAccessServices:def:1 The operating system must limit the number of concurrent sessions to t
+  FAIL  medium  SV-203718r958796_rule        oval:org.RemoteAccessServices:def:1 The operating system must enforce access restrictions.
+  FAIL  medium  SV-203738r958852_rule        oval:org.RemoteAccessServices:def:1 The operating system must verify remote disconnection at the terminati
+  FAIL  medium  SV-203734r982217_rule        oval:org.RemoteAccessServices:def:1 The operating system, for PKI-based authentication, must implement a l
+  FAIL  medium  SV-203735r958846_rule        oval:org.RemoteAccessServices:def:1 The operating system must audit all activities performed during nonloc
+  FAIL  medium  SV-203659r970703_rule        oval:org.RemoteAccessServices:def:1 The operating system must terminate all network connections associated
+  FAIL  medium  SV-203723r1050789_rule       oval:org.RemoteAccessServices:def:1 The operating system must require users to reauthenticate for privileg
+  FAIL  medium  SV-203727r982216_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement multifactor authentication for rem
+  FAIL  medium  SV-203729r958818_rule        oval:org.RemoteAccessServices:def:1 The operating system must electronically verify Personal Identity Veri
+  FAIL  medium  SV-203728r958816_rule        oval:org.RemoteAccessServices:def:1 The operating system must accept Personal Identity Verification (PIV) 
+  FAIL  medium  SV-203624r958452_rule        oval:org.RemoteAccessServices:def:1 The operating system must map the authenticated identity to the user o
+  FAIL  medium  SV-203622r958448_rule        oval:org.RemoteAccessServices:def:1 The operating system, for PKI-based authentication, must validate cert
+  FAIL  medium  SV-203623r958450_rule        oval:org.RemoteAccessServices:def:1 The operating system, for PKI-based authentication, must enforce autho
+  FAIL  medium  SV-203683r958636_rule        oval:org.RemoteAccessServices:def:1 The operating system must automatically terminate a user session after
+  FAIL  medium  SV-203686r958672_rule        oval:org.RemoteAccessServices:def:1 The operating system must control remote access methods.
+  FAIL  medium  SV-203687r958674_rule        oval:org.RemoteAccessServices:def:1 The operating system must provide the capability to immediately discon
+  FAIL  medium  SV-203684r958638_rule        oval:org.RemoteAccessServices:def:1 The operating system must provide a logoff capability for user-initiat
+  FAIL  medium  SV-203685r958640_rule        oval:org.RemoteAccessServices:def:1 The operating system must display an explicit logoff message to users 
+  FAIL  medium  SV-203636r958472_rule        oval:org.RemoteAccessServices:def:1 The operating system must enforce approved authorizations for logical 
+  FAIL  medium  SV-203744r958868_rule        oval:org.RemoteAccessServices:def:1 The operating system must only allow the use of DoD PKI-established ce
+  FAIL  medium  SV-203698r958736_rule        oval:org.RemoteAccessServices:def:1 The operating system must automatically lock an account until the lock
+  FAIL  medium  SV-203598r958400_rule        oval:org.RemoteAccessServices:def:1 The operating system must retain a users session lock until that user 
+  FAIL  medium  SV-203599r958402_rule        oval:org.RemoteAccessServices:def:1 The operating system must initiate a session lock after a 15-minute pe
+  FAIL  medium  SV-203596r958392_rule        oval:org.RemoteAccessServices:def:1 The operating system must display the Standard Mandatory DoD Notice an
+  FAIL  medium  SV-203594r958388_rule        oval:org.RemoteAccessServices:def:1 The operating system must enforce the limit of three consecutive inval
+  FAIL  medium  SV-203595r958390_rule        oval:org.RemoteAccessServices:def:1 The operating system must display the Standard Mandatory DoD Notice an
+  FAIL  medium  SV-203602r958406_rule        oval:org.RemoteAccessServices:def:1 The operating system must monitor remote access methods.
+  FAIL  medium  SV-203600r982194_rule        oval:org.RemoteAccessServices:def:1 The operating system must provide the capability for users to directly
+  FAIL  medium  SV-203601r958404_rule        oval:org.RemoteAccessServices:def:1 The operating system must conceal, via the session lock, information p
+  FAIL  medium  SV-203665r958586_rule        oval:org.RemoteAccessServices:def:1 Any publicly accessible connection to the operating system must displa
+  FAIL  medium  SV-203779r991588_rule        oval:org.RemoteAccessServices:def:1 The operating system must enforce a delay of at least 4 seconds betwee
+  FAIL  medium  SV-203771r991582_rule        oval:org.RemoteAccessServices:def:1 The operating system must generate audit records when concurrent logon
+  FAIL  medium  SV-203646r982206_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement replay-resistant authentication me
+  FAIL  medium  SV-203644r982205_rule        oval:org.RemoteAccessServices:def:1 The operating system must require individuals to be authenticated with
+  FAIL  medium  SV-203645r958494_rule        oval:org.RemoteAccessServices:def:1 The operating system must implement replay-resistant authentication me
+  FAIL  medium  SV-203642r982203_rule        oval:org.RemoteAccessServices:def:1 The operating system must use multifactor authentication for local acc
+  FAIL  medium  SV-203643r982204_rule        oval:org.RemoteAccessServices:def:1 The operating system must use multifactor authentication for local acc
+  FAIL  medium  SV-203640r958484_rule        oval:org.RemoteAccessServices:def:1 The operating system must use multifactor authentication for network a
+  FAIL  medium  SV-203641r958486_rule        oval:org.RemoteAccessServices:def:1 The operating system must use multifactor authentication for network a
+  51 failed rules come from 2 check(s): oval:org.OpenSsl:def:1 (5), oval:org.RemoteAccessServices:def:1 (46)
+wrote  /Users/sathpal/chainguard-dashboards-end-to-end/evidence/scans/ssh-server/{results.xml,results.xml.sha256,report.html,receipt.json}

@@ -1,0 +1,33 @@
+IMAGE                                  REFS  CHAINGUARD EQUIVALENT              CVES NOW (C/H/T)    AFTER (C/H/T)
+cgr.dev/chainguard/go:latest           1     (already Chainguard)                          0/0/0                -
+cgr.dev/chainguard/static:latest       1     (already Chainguard)                          0/0/0                -
+nginx:1.27                             1     cgr.dev/chainguard/nginx:latest          38/235/672            0/0/0
+postgres:16                            1     cgr.dev/chainguard/postgres:latest         3/88/309            0/0/0
+python:3.12-slim                       1     cgr.dev/chainguard/python:latest           0/55/172            0/0/2
+
+where each image is referenced:
+  postgres:16	k8s/postgres.yaml:15
+  nginx:1.27	charts/web/values.yaml:3
+  python:3.12-slim	services/payments/Dockerfile:1
+  cgr.dev/chainguard/go:latest	services/ledger/Dockerfile:1
+  cgr.dev/chainguard/static:latest	services/ledger/Dockerfile:6
+
+potential reduction for images with an equivalent: 1153 -> 2 CVEs
+
+Dockerfile migrations (dfc; Guardener opens these as pull requests):
+  --- a/estate/services/ledger/Dockerfile
+  +++ b/estate/services/ledger/Dockerfile
+  @@ -1,4 +1,4 @@
+  -FROM cgr.dev/chainguard/go:latest AS build
+  +FROM cgr.dev/chainguard/go:latest-dev AS build
+   WORKDIR /src
+   COPY . .
+   RUN CGO_ENABLED=0 go build -o /out/ledger .
+  --- a/estate/services/payments/Dockerfile
+  +++ b/estate/services/payments/Dockerfile
+  @@ -1,4 +1,4 @@
+  -FROM python:3.12-slim
+  +FROM cgr.dev/chainguard/python:3.12-dev
+   WORKDIR /app
+   COPY requirements.txt .
+   RUN pip install --no-cache-dir -r requirements.txt

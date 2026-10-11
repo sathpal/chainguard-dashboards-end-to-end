@@ -1,0 +1,276 @@
+{
+  "image": "drift/active-password:local",
+  "source": "local",
+  "digest": "sha256:d39f5c6f538bbc3b9bbe7b8f3e620ddf2536f99b6ec71d8f946301594609b38e",
+  "platform": "linux/arm64",
+  "scanner": "cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783",
+  "scanner_version": "OpenSCAP command line tool (oscap) 1.4.4",
+  "datastream_sha256": "6f7711b7759c3f9fd1aac4b8ea275075fd9d8810b7fccdeeffe5825a4ceef41e",
+  "results_sha256": "1fcf1670d1ef8d9a23d76501f3afbf7e66f7831a88c34cb0a8782ed54fa0d85f",
+  "started": "2026-10-11T15:14:02Z",
+  "finished": "2026-10-11T15:14:03Z",
+  "profile": "xccdf_basic_profile_.check (Chainguard GPOS SRG)",
+  "counts": {
+    "fail": 36,
+    "notapplicable": 107,
+    "pass": 55
+  },
+  "score": {
+    "default": 66.666664,
+    "flat": 55.0
+  },
+  "failed": [
+    {
+      "rule": "SV-203739r987791_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NSA-approved cryptography to protect classified information in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203776r959006_rule",
+      "severity": "high",
+      "cci": "CCI-002450",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must implement NIST FIPS-validated cryptography for the following: to provision digital signatures, to generate cryptographic hashes, and to protect unclassified information requiring confidentiality and cryptographic protection in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards."
+    },
+    {
+      "rule": "SV-203750r958912_rule",
+      "severity": "medium",
+      "cci": "CCI-002420",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during preparation for transmission."
+    },
+    {
+      "rule": "SV-203751r958914_rule",
+      "severity": "medium",
+      "cci": "CCI-002422",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must maintain the confidentiality and integrity of information during reception."
+    },
+    {
+      "rule": "SV-203649r971535_rule",
+      "severity": "medium",
+      "cci": "CCI-000803",
+      "check": "oval:org.OpenSsl:def:1",
+      "title": "The operating system must use mechanisms meeting the requirements of applicable federal laws, Executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module."
+    },
+    {
+      "rule": "SV-203629r982199_rule",
+      "severity": "high",
+      "cci": "CCI-004062",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must store only encrypted representations of passwords."
+    },
+    {
+      "rule": "SV-203630r987796_rule",
+      "severity": "high",
+      "cci": "CCI-000197",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must transmit only encrypted representations of passwords."
+    },
+    {
+      "rule": "SV-203733r958828_rule",
+      "severity": "medium",
+      "cci": "CCI-002007",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must prohibit the use of cached authenticators after one day."
+    },
+    {
+      "rule": "SV-203628r982198_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must require the change of at least 50 percent of the total number of characters when passwords are changed."
+    },
+    {
+      "rule": "SV-203625r982195_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must enforce password complexity by requiring that at least one uppercase character be used."
+    },
+    {
+      "rule": "SV-203626r982196_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must enforce password complexity by requiring that at least one lowercase character be used."
+    },
+    {
+      "rule": "SV-203627r982197_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must enforce password complexity by requiring that at least one numeric character be used."
+    },
+    {
+      "rule": "SV-203635r958470_rule",
+      "severity": "medium",
+      "cci": "CCI-000206",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must obscure feedback of authentication information during the authentication process to protect the information from possible exploitation/use by unauthorized individuals."
+    },
+    {
+      "rule": "SV-203634r982202_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must enforce a minimum 15-character password length."
+    },
+    {
+      "rule": "SV-203632r1038967_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "Operating systems must enforce a 60-day maximum password lifetime restriction."
+    },
+    {
+      "rule": "SV-203631r982188_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "Operating systems must enforce 24 hours/1 day as the minimum password lifetime."
+    },
+    {
+      "rule": "SV-203676r991561_rule",
+      "severity": "medium",
+      "cci": "CCI-004066",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must enforce password complexity by requiring that at least one special character be used."
+    },
+    {
+      "rule": "SV-203778r991587_rule",
+      "severity": "medium",
+      "cci": "CCI-000366",
+      "check": "oval:org.example:def:3",
+      "title": "The operating system must prevent the use of dictionary words for passwords."
+    },
+    {
+      "rule": "SV-263650r982553_rule",
+      "severity": "medium",
+      "cci": "CCI-003628",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must disable accounts when the accounts are no longer associated to a user."
+    },
+    {
+      "rule": "SV-203695r958726_rule",
+      "severity": "high",
+      "cci": "CCI-002235",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must prevent nonprivileged users from executing privileged functions to include disabling, circumventing, or altering implemented security safeguards/countermeasures."
+    },
+    {
+      "rule": "SV-203781r991590_rule",
+      "severity": "medium",
+      "cci": "CCI-000366",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files."
+    },
+    {
+      "rule": "SV-203650r958504_rule",
+      "severity": "medium",
+      "cci": "CCI-000804",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must uniquely identify and must authenticate non-organizational users (or processes acting on behalf of non-organizational users)."
+    },
+    {
+      "rule": "SV-203652r958508_rule",
+      "severity": "medium",
+      "cci": "CCI-001682",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The information system must automatically remove or disable emergency accounts after the crisis is resolved or 72 hours."
+    },
+    {
+      "rule": "SV-203655r958514_rule",
+      "severity": "medium",
+      "cci": "CCI-001082",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must separate user functionality (including user interface services) from operating system management functionality."
+    },
+    {
+      "rule": "SV-203725r1050791_rule",
+      "severity": "medium",
+      "cci": "CCI-002038",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must require users to reauthenticate when changing authenticators."
+    },
+    {
+      "rule": "SV-203724r1050790_rule",
+      "severity": "medium",
+      "cci": "CCI-002038",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must require users to reauthenticate when changing roles."
+    },
+    {
+      "rule": "SV-203680r991565_rule",
+      "severity": "medium",
+      "cci": "CCI-000015",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must notify system administrators and ISSOs when accounts are disabled."
+    },
+    {
+      "rule": "SV-203681r991566_rule",
+      "severity": "medium",
+      "cci": "CCI-000015",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must notify system administrators and ISSOs when accounts are removed."
+    },
+    {
+      "rule": "SV-203639r958482_rule",
+      "severity": "medium",
+      "cci": "CCI-000764",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must uniquely identify and must authenticate organizational users (or processes acting on behalf of organizational users)."
+    },
+    {
+      "rule": "SV-203696r958730_rule",
+      "severity": "medium",
+      "cci": "CCI-002233",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must prevent all software from executing at higher privilege levels than users executing the software."
+    },
+    {
+      "rule": "SV-203692r958702_rule",
+      "severity": "medium",
+      "cci": "CCI-002165",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must allow operating system admins to pass information to any other operating system admin or user."
+    },
+    {
+      "rule": "SV-203592r958364_rule",
+      "severity": "medium",
+      "cci": "CCI-000016",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must automatically remove or disable temporary user accounts after 72 hours."
+    },
+    {
+      "rule": "SV-203591r958362_rule",
+      "severity": "medium",
+      "cci": "CCI-000015",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must provide automated mechanisms for supporting account management functions."
+    },
+    {
+      "rule": "SV-203783r991592_rule",
+      "severity": "medium",
+      "cci": "CCI-000366",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must limit the ability of non-privileged users to grant other users direct access to the contents of their home directories/folders."
+    },
+    {
+      "rule": "SV-203610r958422_rule",
+      "severity": "medium",
+      "cci": "CCI-000135",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must produce audit records containing the individual identities of group account users."
+    },
+    {
+      "rule": "SV-203648r982189_rule",
+      "severity": "medium",
+      "cci": "CCI-003627",
+      "check": "oval:org.NoUsers:def:1",
+      "title": "The operating system must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity."
+    }
+  ]
+}

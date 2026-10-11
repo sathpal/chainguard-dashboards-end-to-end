@@ -1,0 +1,158 @@
+# The Compliance tab, as a pipeline: STIG-scan images by digest, gate the result against accepted failures that expire,
+# show the drift your own customisations introduce, and publish a signed receipt for an image this repository builds.
+# Every action is a Chainguard Actions copy pinned by SHA, with its version in the comment for Dependabot.
+name: compliance
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # Chainguard rebuilds its images continuously, so the same tag is usually a new digest a week later. The scan
+    # follows the image; the receipt says which digest it was.
+    - cron: "17 3 * * 1"
+
+permissions: {}
+
+env:
+  # Resolved to a digest at run time and recorded in every receipt. openscap:latest-dev always carries the newest
+  # Chainguard GPOS profile, which is the point of a scheduled re-scan.
+  SCANNER: cgr.dev/chainguard/openscap:latest-dev
+  PLATFORM: linux/amd64
+
+jobs:
+  scan:
+    name: scan ${{ matrix.image }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - cgr.dev/chainguard/wolfi-base:latest
+          - cgr.dev/chainguard/python:latest
+          - cgr.dev/chainguard/nginx:latest
+    steps:
+      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
+        with:
+          version: v0.22.1
+      - name: STIG scan
+        env:
+          IMAGE: ${{ matrix.image }}
+        run: scripts/stig-scan.sh "$IMAGE" out
+      - name: Gate against accepted failures
+        run: |
+          {
+            python3 scripts/dashboard.py out/receipt.json
+            echo; echo '```text'
+            python3 scripts/gate.py out/receipt.json policy/accepted-failures.json || true
+            echo '```'
+          } > summary.md
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"; cat summary.md
+          python3 scripts/gate.py out/receipt.json policy/accepted-failures.json > /dev/null
+      - name: Keep the evidence
+        if: always()
+        uses: chainguard-actions/actions-upload-artifact@ebf8f2543b7189e9a67dcac1af8cabbc5d7a3fd6 # v7.0.2
+        with:
+          name: stig-${{ strategy.job-index }}
+          path: out/
+
+  drift:
+    name: drift (what your own changes do to the scan)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
+        with:
+          version: v0.22.1
+      - name: Build each fixture, scan it, compare with the baseline
+        run: |
+          rm -rf evidence/scans
+          scripts/drift.sh | tee drift.txt
+          {
+            echo '## Drift against Chainguard wolfi-base as shipped'
+            python3 scripts/dashboard.py evidence/scans/*/receipt.json
+            echo; echo '```text'; cat drift.txt; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the evidence
+        uses: chainguard-actions/actions-upload-artifact@ebf8f2543b7189e9a67dcac1af8cabbc5d7a3fd6 # v7.0.2
+        with:
+          name: drift
+          path: evidence/scans/
+
+  receipt:
+    name: signed receipt for an image built here
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write   # push the image and its attestation to GHCR
+      id-token: write   # keyless signing: Fulcio certifies this workflow's identity
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}/corp-base
+      RECEIPT_TYPE: https://github.com/${{ github.repository }}/stig-receipt/v1
+      SIGNER: https://github.com/${{ github.workflow_ref }}
+    steps:
+      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
+        with:
+          version: v0.22.1
+      - uses: chainguard-actions/sigstore-cosign-installer@b87981cc3b0232e11827d1a8c6bcfa63d6cbd97a # v4.1.2
+        with:
+          cosign-release: v3.1.3
+      - uses: chainguard-actions/docker-login-action@471f865b6525577aec1a207ce43d4ec3ed8a996d # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the corporate base image with apko and publish it
+        id: build
+        run: |
+          # The corporate root CA is declared in apko.yaml, so apko records the merged bundle's SHA-256 and the
+          # trust-anchor rule passes. apko publish prints the digest reference it pushed.
+          ref=$(docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp -e DOCKER_CONFIG=/docker \
+                  -v "$HOME/.docker":/docker -v "$PWD/drift/corporate-ca-apko":/work -w /work \
+                  cgr.dev/chainguard/apko:latest \
+                  publish apko.yaml "$IMAGE:${GITHUB_SHA::12}" --arch amd64 --sbom=false | tail -1)
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"; echo "published $ref"
+      - name: STIG scan by digest, then gate
+        env:
+          REF: ${{ steps.build.outputs.ref }}
+        run: |
+          scripts/stig-scan.sh "$REF" out
+          python3 scripts/gate.py out/receipt.json policy/accepted-failures.json
+      - name: Attest the receipt to the image digest
+        env:
+          REF: ${{ steps.build.outputs.ref }}
+        run: |
+          # The receipt becomes a signed in-toto statement whose subject is the image digest: it cannot be moved to
+          # another image or edited without failing verification.
+          cosign attest --yes --type "$RECEIPT_TYPE" \
+            --predicate out/receipt.json "$REF"
+      - name: Verify it as a consumer would
+        env:
+          REF: ${{ steps.build.outputs.ref }}
+        run: |
+          cosign verify-attestation --type "$RECEIPT_TYPE" --certificate-identity "$SIGNER" \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com "$REF" 2>/dev/null \
+            | jq -r '.payload | @base64d | fromjson
+                     | "subject \(.subject[0].name)@sha256:\(.subject[0].digest.sha256)",
+                       "receipt \(.predicate.image) scanned \(.predicate.finished) with \(.predicate.scanner)",
+                       "counts  \(.predicate.counts)"' | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Keep the evidence
+        if: always()
+        uses: chainguard-actions/actions-upload-artifact@ebf8f2543b7189e9a67dcac1af8cabbc5d7a3fd6 # v7.0.2
+        with:
+          name: receipt
+          path: out/

@@ -1,0 +1,12 @@
+scan   drift/corporate-ca-dockerfile:local
+       local sha256:c7734b6d21e8c7e035ff3cbd9a20913f68e0f600946f1cc6fa6d0d4f464ab412 (linux/arm64)
+with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
+result fail 6  notapplicable 107  pass 85  (rules 198)
+  FAIL  high    SV-203739r987791_rule        oval:org.OpenSsl:def:1         The operating system must implement NSA-approved cryptography to prote
+  FAIL  high    SV-203776r959006_rule        oval:org.OpenSsl:def:1         The operating system must implement NIST FIPS-validated cryptography f
+  FAIL  medium  SV-203750r958912_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203751r958914_rule        oval:org.OpenSsl:def:1         The operating system must maintain the confidentiality and integrity o
+  FAIL  medium  SV-203649r971535_rule        oval:org.OpenSsl:def:1         The operating system must use mechanisms meeting the requirements of a
+  FAIL  medium  SV-263659r982563_rule        oval:org.CABundleHash:def:1    The operating system must include only approved trust anchors in trust
+  6 failed rules come from 2 check(s): oval:org.OpenSsl:def:1 (5), oval:org.CABundleHash:def:1 (1)
+wrote  /Users/sathpal/chainguard-dashboards-end-to-end/evidence/scans/corporate-ca-dockerfile/{results.xml,results.xml.sha256,report.html,receipt.json}

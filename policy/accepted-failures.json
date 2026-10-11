@@ -1,0 +1,12 @@
+{
+  "_comment": "STIG failures this organisation has accepted, each with a reason, an owner and an expiry. scripts/gate.py fails a scan on any failed rule not covered here, and on any entry past its expiry, so an acceptance is reviewed instead of becoming permanent.",
+  "accepted": [
+    {
+      "check": "oval:org.OpenSsl:def:1",
+      "applies_to": "non-fips",
+      "reason": "FIPS-validated cryptography (SV-203739, SV-203776, SV-203750, SV-203751, SV-203649) needs a -fips image variant, which requires a FIPS entitlement. Workloads in scope for FIPS 140-3 must use the -fips variant; these images are for workloads that are not.",
+      "owner": "platform-security",
+      "expires": "2027-01-31"
+    }
+  ]
+}
