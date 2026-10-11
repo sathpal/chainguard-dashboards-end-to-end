@@ -23,3 +23,6 @@ counts  {"fail":5,"notapplicable":107,"pass":86}
 
 $ cosign verify-attestation ... --certificate-identity https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/other.yml@refs/heads/main ...
 failed to verify certificate identity: no matching CertificateIdentity found, last error: expected SAN value "https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/other.yml@refs/heads/main", got "https://github.com/sathpal/chainguard-dashboards-end-to-end/.github/workflows/compliance.yml@refs/heads/main"
+
+# Re-verified on 2026-10-11 after the package was made public, with an empty Docker config (no credentials):
+# four receipts on the same digest, one per CI run that day (scan times 15:25:37Z, 15:26:47Z, 15:35:12Z, 16:01:35Z).

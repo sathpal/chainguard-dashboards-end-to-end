@@ -8,6 +8,8 @@ images and open tools, then goes one step past them: to the images you build on 
 All outputs below are from runs on 11 October 2026: Part A on a laptop (Docker Desktop, linux/arm64), Part B in GitHub
 Actions (linux/amd64). Digests and timestamps will differ for you; rule results should not.
 
+![Chainguard blog: Announcing the Chainguard Compliance Dashboard, 7 October 2026](images/web-compliance-post.png)
+
 **You need:** Docker, `crane`, Python 3, `git`. For A7 also `grype`, `jq` and optionally `dfc`. No Chainguard account.
 
 ```bash
@@ -166,7 +168,10 @@ CCI-004909, "only approved trust anchors") compares the two, so one passes and o
 **The point to take into a design review:** "approved" means declared in a reviewed build definition, and the
 sidecar is the evidence. A certificate added in a later layer may be perfectly legitimate, but the image can no longer
 prove it. Chainguard's own explanation is in
-[certificate-audit.md](https://github.com/chainguard-dev/stigs/blob/main/docs/certificate-audit.md). For images in
+[certificate-audit.md](https://github.com/chainguard-dev/stigs/blob/main/docs/certificate-audit.md).
+
+![chainguard-dev/stigs certificate-audit.md: how additional trust anchors reach the sidecars](images/web-cert-audit-doc.png)
+ For images in
 your organisation's Chainguard catalog, Custom Assembly is the managed way to declare additions; the Compliance
 Dashboard announcement lists Custom Assembly support as a fast follow.
 
@@ -244,7 +249,20 @@ three images carry 774, not 1,153 ([`insights-current-tags.txt`](../evidence/ins
 compares Python 3.12 with Chainguard's latest Python; an organisation's catalog, which Insights uses, matches versions.
 The migration dfc proposes (`python:3.12-dev`) needs that catalog too.
 
+The Console already shows part of this for any account: **Reports** (CVE Visualizations) compares a Chainguard image
+with an alternative over time. For nginx on 11 October, 0 CVEs against 191 for `nginx:latest`:
+
+![Chainguard Console Reports: Chainguard nginx 0 CVEs, 7.38 MB; nginx:latest 191 CVEs, 63.26 MB](images/console-reports-nginx.png)
+
 ### A8. The FIPS panel: what it takes
+
+![Chainguard Console catalog: FIPS variants next to each image, Contact us for access](images/console-catalog.png)
+
+Signed in to the Console with a free-tier organisation, `python-fips` shows "FIPS validated" and "STIG hardened" badges,
+but its pages are Tags, Overview, Comparison, Provenance, Specifications, SBOM, Vulnerabilities and Advisories: no
+Compliance tab, and every tag says "Contact us for access".
+
+![Chainguard Console, free-tier organisation: python-fips with badges and eight tabs, no Compliance tab](images/console-python-fips.png)
 
 The FIPS certificate panel needs `-fips` images, which need a FIPS entitlement, so this repository does not run it.
 With access, Chainguard documents these checks ([Verifying FIPS configuration](https://edu.chainguard.dev/platform/fips/verify-fips/)):
@@ -271,6 +289,16 @@ requests and every Monday). Five jobs:
 | `drift` | A4 on linux/amd64 |
 | `signed receipt` | Builds the apko CA image, pushes it to GHCR, scans it by digest, gates it, and attests the receipt |
 
+![GitHub Actions: the compliance workflow, five jobs green](images/web-ci-run.png)
+
+Each job writes a summary. The scan jobs show the dashboard table and the gate:
+
+![Job summary: wolfi-base on linux/amd64, 86 pass, 5 fail, 107 not applicable, gate PASS with five accepted FIPS rules](images/web-ci-summary-scan.png)
+
+The drift job shows every fixture, scanned on linux/amd64:
+
+![Job summary: the drift fixtures on linux/amd64 with the same results as on the laptop](images/web-ci-summary-drift.png)
+
 Every action is a [Chainguard Actions](https://github.com/sathpal/chainguard-actions-end-to-end) copy pinned by SHA,
 and Dependabot keeps both the pins and the fixtures' base-image digests current.
 
@@ -294,6 +322,8 @@ cosign verify-attestation \
 ```text
 sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64 {"fail":5,"notapplicable":107,"pass":86}
 sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64 {"fail":5,"notapplicable":107,"pass":86}
+sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64 {"fail":5,"notapplicable":107,"pass":86}
+sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64 {"fail":5,"notapplicable":107,"pass":86}
 ```
 
 Change the identity to any other workflow and it is refused:
@@ -303,12 +333,17 @@ failed to verify certificate identity: no matching CertificateIdentity found, la
 "https://github.com/.../.github/workflows/other.yml@refs/heads/main", got "https://github.com/.../.github/workflows/compliance.yml@refs/heads/main"
 ```
 
-**Observation.** Two receipts, one digest. apko builds are reproducible, so the second run rebuilt the identical image
-and attested a second scan to it. Receipts accumulate as a scan history on the artifact itself, the same idea as the
-historical reports in the Compliance tab.
+**Observation.** Four receipts, one digest. apko builds are reproducible, so every run that day rebuilt the identical
+image and attested another scan to it. Receipts accumulate as a scan history on the artifact itself, the same idea as
+the historical reports in the Compliance tab. The package page shows it from the other side: one digest, tagged by four
+commits.
 
-GHCR creates the package as private. To let others verify without credentials, make it public in the package
-settings.
+![GHCR package corp-base: one image digest tagged by four commits](images/web-ghcr-package.png)
+
+![Job summary of the receipt job: each verified receipt with its subject, scan time, scanner and counts](images/web-ci-summary-receipt.png)
+
+GHCR creates packages as private. This one has been made public, so the command above works with no credentials at
+all; in your fork, do the same under Package settings.
 
 ## Failures we hit, and the fixes
 

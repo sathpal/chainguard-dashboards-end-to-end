@@ -16,12 +16,15 @@ On 7 October 2026 Chainguard made its [Compliance Dashboard](https://www.chaingu
 ## TL;DR
 
 - **The Compliance Dashboard is GA; Insights is not yet.** Compliance is "available today for all Chainguard Console users". Insights is due "in the coming weeks", and Guardener, which feeds it, is in Early Access.
+- **A free-tier Console organisation doesn't get the Compliance tab**, not even on `python-fips`. The catalog shows "FIPS validated" and "STIG hardened" badges; the evidence behind them is for images in an organisation's own registry.
 - **Chainguard images as shipped:** 86 rules pass, 107 don't apply to a container, 5 fail. All 5 failures are one check, FIPS-validated cryptography, which only a `-fips` image can pass. Same result on `wolfi-base`, `python` and `nginx`, on arm64 and amd64.
 - **What you add on top is where compliance breaks.** An SSH server fails 46 rules. A plain-http package mirror fails a high-severity rule. A corporate CA added with `update-ca-certificates` fails the trust-anchor rule; the same CA declared in the apko build definition passes.
 - **A receipt is only useful signed.** CI scans the image by digest, gates the result, and attests the receipt to the digest with cosign. It verifies for that workflow and is refused for any other.
 - **Insights, approximated:** three upstream images in a sample estate carry 1,153 CVEs at the tags the estate pins, 774 at today's tags. Their public Chainguard equivalents carry 2.
 
 ## What the Compliance Dashboard shows
+
+![Chainguard blog: Announcing the Chainguard Compliance Dashboard, 7 October 2026](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/web-compliance-post.png)
 
 For each image in your organisation's catalog, the Console's Compliance tab shows:
 
@@ -32,7 +35,12 @@ For each image in your organisation's catalog, the Console's Compliance tab show
 
 It updates with every image build, and the announcement lists Custom Assembly support as a fast follow. All of that is evidence an assessor can use, produced by Chainguard for the images Chainguard builds.
 
-Nothing in this post logs in to the Console. Instead I asked: can I produce each of those pieces myself, for any image, in CI? It turns out you can, with Chainguard's own scanner image.
+I signed in to the Console with a free-tier organisation to see it for myself. The catalog lists `-fips` variants with "FIPS validated" and "STIG hardened" badges, but the image pages have eight tabs (Tags, Overview, Comparison, Provenance, Specifications, SBOM, Vulnerabilities, Advisories) and no Compliance tab, not even on `python-fips`. Chainguard's documentation for the tab, still in review, describes it for an organisation's FIPS images, so it appears for images in your own registry, not for the public catalog.
+
+![Chainguard Console, free-tier organisation: python-fips with FIPS validated and STIG hardened badges, eight tabs, no Compliance tab](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/console-python-fips.png)
+*python-fips in the Console on a free-tier organisation: the badges are there, the Compliance tab is not.*
+
+So I asked a different question: can I produce each of those pieces myself, for any image, in CI? It turns out you can, with Chainguard's own scanner image.
 
 ## Step 1: Scan a Chainguard image the way the Compliance tab does
 
@@ -42,18 +50,7 @@ Chainguard publishes its STIG profile in [chainguard-dev/stigs](https://github.c
 scripts/stig-scan.sh cgr.dev/chainguard/wolfi-base:latest out/wolfi-base
 ```
 
-```text
-scan   cgr.dev/chainguard/wolfi-base:latest
-       registry sha256:74e1bcf7505648076546f2fe4735d243163e366d8f2ccd46b224adfadd48b5e3 (linux/arm64)
-with   cgr.dev/chainguard/openscap@sha256:4b5bcad6b4acfcb2e6d4fd25d5ce7aec83dcaa11affd5b468caaf95a04219783
-result fail 5  notapplicable 107  pass 86  (rules 198)
-  FAIL  high    SV-203739r987791_rule   oval:org.OpenSsl:def:1   The operating system must implement NSA-approved cryptography ...
-  FAIL  high    SV-203776r959006_rule   oval:org.OpenSsl:def:1   The operating system must implement NIST FIPS-validated cryptography ...
-  FAIL  medium  SV-203750r958912_rule   oval:org.OpenSsl:def:1   ...
-  FAIL  medium  SV-203751r958914_rule   oval:org.OpenSsl:def:1   ...
-  FAIL  medium  SV-203649r971535_rule   oval:org.OpenSsl:def:1   ...
-  5 failed rules come from 1 check(s): oval:org.OpenSsl:def:1 (5)
-```
+![stig-scan.sh on cgr.dev/chainguard/wolfi-base: 198 rules, 86 pass, 107 not applicable, 5 fail, all five from oval:org.OpenSsl:def:1](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/stig-scan.png)
 
 Ten seconds, and three things to read in it.
 
@@ -67,21 +64,7 @@ Ten seconds, and three things to read in it.
 
 This is the part no vendor dashboard can cover: almost nobody runs a base image unmodified. I wrote five fixtures, each a few lines on top of the same pinned `wolfi-base`, modelled on common customisations (three follow test fixtures in Chainguard's own STIG repository), and diffed each scan against the unmodified image:
 
-```text
-FIXTURE                      PASS   FAIL    N/A   CHANGED AGAINST THE BASELINE
-baseline                       86      5    107   (Chainguard wolfi-base as shipped)
-corporate-ca-dockerfile        85      6    107
-    1 pass -> fail via oval:org.CABundleHash:def:1 (1 medium), e.g. SV-263659: ...only approved trust anchors
-corporate-ca-apko              86      5    107
-  no rule changed result
-http-mirror                    85      6    107
-    1 pass -> fail via oval:org.PackageSignature:def:1 (1 high), e.g. SV-203720: ...installation of patches
-ssh-server                     40     51    107
-   46 pass -> fail via oval:org.RemoteAccessServices:def:1 (39 medium, 6 high, 1 low)
-active-password                55     36    107
-   13 pass -> fail via oval:org.example:def:3 (11 medium, 2 high)
-   18 pass -> fail via oval:org.NoUsers:def:1 (17 medium, 1 high)
-```
+![drift.sh: each customisation on top of wolfi-base and the rules it turns from pass to fail](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/drift.png)
 
 - **`apk add dropbear` "for debugging" fails 46 rules.** The check looks for remote-access packages, so the daemon doesn't have to run. Debug access belongs in an ephemeral debug container.
 - **One `http://` line in `/etc/apk/repositories` is a high-severity failure.** Package downloads lose transport integrity. It can creep in when an internal mirror is added during a proxy change.
@@ -102,24 +85,13 @@ certificates:
 
 Then look inside each image. The first line is the SHA-256 that apko recorded beside the bundle when it built the image; the second is the bundle as it is now:
 
-```text
-## baseline
-028fca5150ee1915c4474489985d55c54fceaa680c754cc8d1301734f01b2232  ca-certificates.crt
-028fca5150ee1915c4474489985d55c54fceaa680c754cc8d1301734f01b2232  ca-certificates.crt
-121
-## corporate-ca-dockerfile
-028fca5150ee1915c4474489985d55c54fceaa680c754cc8d1301734f01b2232  ca-certificates.crt
-63742d36e0b5e846f682bfc6c0f902cfc3b2570be566b0776f7d1a4bc8e4d65b  ca-certificates.crt
-122
-## corporate-ca-apko
-63742d36e0b5e846f682bfc6c0f902cfc3b2570be566b0776f7d1a4bc8e4d65b  ca-certificates.crt
-63742d36e0b5e846f682bfc6c0f902cfc3b2570be566b0776f7d1a4bc8e4d65b  ca-certificates.crt
-122
-```
+![Recorded SHA-256 against the CA bundle in three images: baseline matches, the Dockerfile CA image is stale, the apko CA image matches](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/ca-sidecars.png)
 
 Both CA images trust the same 122 roots, byte for byte. In the apko image the record matches the bundle. In the Dockerfile image the record still describes the bundle from *before* the CA was added, and the trust-anchor rule compares the two.
 
-Chainguard's [explanation of that rule](https://github.com/chainguard-dev/stigs/blob/main/docs/certificate-audit.md) is worth reading in full. "Approved" means *declared in a reviewed build definition*, and the recorded hash is the evidence of what was declared. A certificate added in a later layer may be perfectly legitimate, but the image can no longer prove it. For images in your own Chainguard catalog, Custom Assembly is the managed way to declare additions.
+Chainguard's [explanation of that rule](https://github.com/chainguard-dev/stigs/blob/main/docs/certificate-audit.md) is worth reading in full.
+
+![chainguard-dev/stigs certificate-audit.md: how additional trust anchors reach the sidecars](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/web-cert-audit-doc.png) "Approved" means *declared in a reviewed build definition*, and the recorded hash is the evidence of what was declared. A certificate added in a later layer may be perfectly legitimate, but the image can no longer prove it. For images in your own Chainguard catalog, Custom Assembly is the managed way to declare additions.
 
 ## Step 4: Gate it, with acceptances that expire
 
@@ -135,13 +107,9 @@ A scan that only reports gets ignored. A gate that fails on everything gets swit
 }
 ```
 
-```text
-PASS  cgr.dev/chainguard/wolfi-base:latest sha256:74e1bcf75056  pass 86  fail 5  n/a 107  unaccepted or expired 0
-FAIL  drift/corporate-ca-dockerfile:local sha256:21044851f10d  pass 85  fail 6  n/a 107  unaccepted or expired 1
-EXPIRED  acceptance of oval:org.OpenSsl:def:1 expired 2027-01-31 (owner platform-security): review it or remove it
-```
+![gate.py: PASS with accepted FIPS failures, FAIL on the Dockerfile CA image, EXPIRED acceptance in 2027, FAIL when the image is treated as FIPS](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/gate.png)
 
-The last line is the same image, evaluated as if it were 1 February 2027. The acceptance lapsed, so the gate fails until someone re-approves or removes it. That's a risk register entry with a review date, enforced by CI. An entry marked `non-fips` also doesn't cover an image scanned as FIPS, so a FIPS image can't quietly inherit a non-FIPS exception.
+The third run is the same image, evaluated as if it were 1 February 2027. The acceptance lapsed, so the gate fails until someone re-approves or removes it. That's a risk register entry with a review date, enforced by CI. An entry marked `non-fips` also doesn't cover an image scanned as FIPS, so a FIPS image can't quietly inherit a non-FIPS exception.
 
 ## Step 5: Sign the receipt
 
@@ -155,37 +123,31 @@ cosign verify-attestation \
   ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73...
 ```
 
-```text
-subject ghcr.io/sathpal/chainguard-dashboards-end-to-end/corp-base@sha256:2dce6a73f437...
-digest  sha256:36941fa0d16b432b4e5b97fc78bd80c1d41f833ec3fed72a151e63f92d7ed7e2 linux/amd64
-scanner cgr.dev/chainguard/openscap@sha256:81361810fdd51d202f6318ddc2d8410dbe7cfa2e48b1b36c93dab40851d52a50
-counts  {"fail":5,"notapplicable":107,"pass":86}
-```
+![cosign verify-attestation: four signed receipts on one image digest, accepted for compliance.yml and refused for any other workflow identity](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/receipt-verify.png)
 
-Change the identity to any other workflow and it's refused: `expected SAN value ".../other.yml@refs/heads/main", got ".../compliance.yml@refs/heads/main"`.
+Change the identity to any other workflow and it's refused, as the last command shows.
 
-One surprise: **two receipts, one digest.** apko builds are reproducible, so the second CI run rebuilt the identical image and attested a second scan to it. Receipts pile up on the artifact as a scan history, the same idea as the historical reports in the Compliance tab.
+One surprise: **four receipts, one digest.** apko builds are reproducible, so every CI run that day rebuilt the identical image and attested another scan to it. Receipts pile up on the artifact as a scan history, the same idea as the historical reports in the Compliance tab.
+
+![GitHub Actions: the compliance workflow with three scans, drift and the signed receipt, all green](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/web-ci-run.png)
 
 ## Step 6: Insights, approximated
 
+![Chainguard blog: Introducing the Chainguard Console Insights Dashboard, powered by Guardener, 8 October 2026](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/web-insights-post.png)
+
 Insights will inventory every image your GitHub repositories reference (Dockerfiles, Helm charts, Kubernetes manifests) and show the Chainguard equivalent and the CVE difference. It isn't out yet, so I approximated it on a small sample estate with an inventory script, grype and dfc:
 
-```text
-IMAGE                               CHAINGUARD EQUIVALENT                CVES NOW (C/H/T)   AFTER (C/H/T)
-cgr.dev/chainguard/go:latest        (already Chainguard)                 0/0/0              -
-cgr.dev/chainguard/static:latest    (already Chainguard)                 0/0/0              -
-nginx:1.27                          cgr.dev/chainguard/nginx:latest      38/235/672         0/0/0
-postgres:16                         cgr.dev/chainguard/postgres:latest   3/88/309           0/0/0
-python:3.12-slim                    cgr.dev/chainguard/python:latest     0/55/172           0/0/2
-
-potential reduction for images with an equivalent: 1153 -> 2 CVEs
-```
+![insights.sh on the sample estate: five images, Chainguard equivalents, 1,153 CVEs down to 2, and the dfc migration](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/insights.png)
 
 Be fair with these numbers. The estate pins tags teams commonly leave in place; at today's upstream tags (nginx 1.30.5, postgres 18.6, python:slim) the total is 774, not 1,153. The public catalog also serves `:latest` only, so this compares Python 3.12 with Chainguard's latest Python. An organisation's catalog, which Insights will use, matches versions. Either way, the gap is the story.
 
+The Console already has a piece of this today. **Reports** (CVE Visualizations, already GA) compares a Chainguard image with an alternative over time. For nginx on 11 October it showed 0 CVEs against 191 for `nginx:latest`, a daily average of 4 against 200, and 7.4 MB against 63 MB:
+
+![Chainguard Console Reports: nginx, Chainguard 0 CVEs and 7.38 MB against nginx:latest with 191 CVEs and 63.26 MB](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/console-reports-nginx.png)
+
 ## Caveats nobody puts on the slide
 
-- **This isn't the Console.** My receipts are signed by my workflow, for images I build. The Compliance tab's are signed by Chainguard, for images Chainguard builds. You want both.
+- **This isn't the Compliance tab.** My receipts are signed by my workflow, for images I build. The Compliance tab's are signed by Chainguard, for images Chainguard builds. You want both, and on a free-tier organisation you only get mine.
 - **FIPS needs an entitlement.** I couldn't reproduce the FIPS certificate panel, and every non-FIPS image fails five rules because of it. Say so in a policy file with an expiry instead of hiding it.
 - **The scanner is privileged.** `oscap-docker` needs the Docker socket and the host's pid namespace. Run it on a build host, never on a production node.
 - **"Not applicable" isn't "compliant".** 107 rules are for your host and runtime to meet.
