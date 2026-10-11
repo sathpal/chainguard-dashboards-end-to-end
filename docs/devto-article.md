@@ -127,7 +127,7 @@ cosign verify-attestation \
 
 Change the identity to any other workflow and it's refused, as the last command shows.
 
-One surprise: **four receipts, one digest.** apko builds are reproducible, so every CI run that day rebuilt the identical image and attested another scan to it. Receipts pile up on the artifact as a scan history, the same idea as the historical reports in the Compliance tab.
+One surprise: **many receipts, one digest.** apko builds are reproducible, so every CI run rebuilt the identical image and attested another scan to it; when I verified, there were four. Receipts pile up on the artifact as a scan history, the same idea as the historical reports in the Compliance tab.
 
 ![GitHub Actions: the compliance workflow with three scans, drift and the signed receipt, all green](https://raw.githubusercontent.com/sathpal/chainguard-dashboards-end-to-end/main/docs/images/web-ci-run.png)
 

@@ -333,8 +333,8 @@ failed to verify certificate identity: no matching CertificateIdentity found, la
 "https://github.com/.../.github/workflows/other.yml@refs/heads/main", got "https://github.com/.../.github/workflows/compliance.yml@refs/heads/main"
 ```
 
-**Observation.** Four receipts, one digest. apko builds are reproducible, so every run that day rebuilt the identical
-image and attested another scan to it. Receipts accumulate as a scan history on the artifact itself, the same idea as
+**Observation.** Many receipts, one digest. apko builds are reproducible, so every run rebuilt the identical image and
+attested another scan to it; there were four when this was captured. Receipts accumulate as a scan history on the artifact itself, the same idea as
 the historical reports in the Compliance tab. The package page shows it from the other side: one digest, tagged by four
 commits.
 
