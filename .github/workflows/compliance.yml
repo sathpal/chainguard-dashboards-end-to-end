@@ -35,7 +35,7 @@ jobs:
           - cgr.dev/chainguard/python:latest
           - cgr.dev/chainguard/nginx:latest
     steps:
-      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+      - uses: chainguard-actions/actions-checkout@37298d8de412b35988dd165ffae45f45b329d365 # v7.0.1
         with:
           persist-credentials: false
       - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
@@ -68,7 +68,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+      - uses: chainguard-actions/actions-checkout@37298d8de412b35988dd165ffae45f45b329d365 # v7.0.1
         with:
           persist-credentials: false
       - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
@@ -103,7 +103,7 @@ jobs:
       RECEIPT_TYPE: https://github.com/${{ github.repository }}/stig-receipt/v1
       SIGNER: https://github.com/${{ github.workflow_ref }}
     steps:
-      - uses: chainguard-actions/actions-checkout@279383ec3b8d70f964ffa5a2151ea3d2a5317ec6 # v7.0.1
+      - uses: chainguard-actions/actions-checkout@37298d8de412b35988dd165ffae45f45b329d365 # v7.0.1
         with:
           persist-credentials: false
       - uses: chainguard-actions/imjasonh-setup-crane@e517f1f17a0d0ec36472cc31c81808ce6106d02e # v0.7
@@ -112,7 +112,7 @@ jobs:
       - uses: chainguard-actions/sigstore-cosign-installer@b87981cc3b0232e11827d1a8c6bcfa63d6cbd97a # v4.1.2
         with:
           cosign-release: v3.1.3
-      - uses: chainguard-actions/docker-login-action@471f865b6525577aec1a207ce43d4ec3ed8a996d # v4.6.0
+      - uses: chainguard-actions/docker-login-action@9ca95e6f2e9bd0c4126723351940f7635d932456 # v4.7.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
